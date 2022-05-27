@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news/data/main_news_item_dao.dart';
+import 'package:flutter_news/models/main_news_model/main_news_model.dart';
 import 'package:flutter_news/screens/home/components/brand_names.dart';
 import 'package:flutter_news/screens/home/components/news_items.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import 'components/brandnames_listwidget.dart';
 import 'components/category_list.dart';
@@ -16,6 +20,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainNewsDao = Provider.of<MainNewsDAO>(context, listen: false);
+    final lastItem = mainNewsDao.getStream();
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -27,14 +33,26 @@ class HomePage extends StatelessWidget {
             onTap: () => context.go('/details/someID'),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: MainNewsItem(
-                  imageUrl:
-                      'https://images.unsplash.com/photo-1552083375-1447ce886485?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080&utm_source=unsplash_source&utm_medium=referral&utm_campaign=api-credit',
-                  category: 'Health',
-                  publisher: 'Bloomberg',
-                  timeAgo: '5m ago',
-                  title:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: mainNewsDao.getStream(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: LinearProgressIndicator());
+                  }
+
+                  final newsItem =
+                      snapshot.data?.docs.first; //most recent first
+
+                  final convertedNewsItem =
+                      MainNewsModel.fromSnapshot(newsItem);
+                  return MainNewsItem(
+                      imageUrl: convertedNewsItem.imageUrl as String,
+                      category: convertedNewsItem.category as String,
+                      publisher: convertedNewsItem.publisher as String,
+                      timeAgo: convertedNewsItem.date.toString(),
+                      title: convertedNewsItem.title as String);
+                },
+              ),
             ),
           ),
           Divider(),
