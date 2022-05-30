@@ -69,6 +69,7 @@ class _BoardingPageState extends State<BoardingPage> {
       ],
       onDone: () async {
         Provider.of<AppStateManager>(context, listen: false).onBoarded();
+        //or use context.read<AppStateManager>().isBoarded(); // inside callbacks
         context.go('/login');
         if (_skipBoarding) {
           SharedPreferences sharedprefs = await SharedPreferences.getInstance();

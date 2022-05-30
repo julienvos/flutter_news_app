@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_news/data/user_dao.dart';
 import 'package:flutter_news/managers/app_state_manager.dart';
 import 'package:flutter_news/screens/loginscreen/login_screen.dart';
 import 'package:flutter_news/screens/onboardingScreen/intro_screen.dart';
@@ -11,7 +12,6 @@ import '../screens/SignUpPage/sign_up_page.dart';
 import '../screens/categories_tab/categoryPage/category_page.dart';
 import '../screens/detailsScreen/details_screen.dart';
 import '../screens/news_site_screen/news_site_page.dart';
-import '../screens/onboardingScreen/onboarding_screen.dart';
 import '../screens/searchPage/search_page.dart';
 
 final GoRouter goRouter = GoRouter(
@@ -61,7 +61,7 @@ final GoRouter goRouter = GoRouter(
         return null;
       }
 
-      if (!appStateManager.isLoggedin) {
+      if (!appStateManager.isLoggedin()) {
         if (state.subloc == '/login/signup') {
           return null;
         }

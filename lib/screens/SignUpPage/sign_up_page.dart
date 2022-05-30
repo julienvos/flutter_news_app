@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_news/data/user_dao.dart';
+import 'package:flutter_news/managers/app_state_manager.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
@@ -52,6 +55,14 @@ class SignUpPage extends StatelessWidget {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
+                            final String email =
+                                _formKey.currentState!.fields['Email']!.value;
+                            final String password = _formKey
+                                .currentState!.fields['Password']!.value;
+
+                            //sign up
+                            Provider.of<AppStateManager>(context, listen: false)
+                                .signup(email, password);
                           }
                         },
                         child: Text('create Account')),

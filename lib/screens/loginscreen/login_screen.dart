@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_news/data/user_dao.dart';
 import 'package:flutter_news/managers/app_state_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -142,9 +143,9 @@ class InlogForm extends StatelessWidget {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    final username =
+                    final String username =
                         _formKey.currentState!.fields['Email']!.value;
-                    final password =
+                    final String password =
                         _formKey.currentState!.fields['Password']!.value;
                     Provider.of<AppStateManager>(context, listen: false)
                         .login(username, password);

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news/data/main_news_item_dao.dart';
+import 'package:flutter_news/data/user_dao.dart';
 import 'package:flutter_news/managers/app_state_manager.dart';
 import 'package:flutter_news/navigation/navigation.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
@@ -33,10 +34,12 @@ class MyApp extends StatelessWidget {
             create: (_) => MainNewsDAO(),
             lazy: false,
           ),
-          ChangeNotifierProvider(
-            create: (BuildContext context) => appStateManager,
-            lazy: false,
-          )
+          ChangeNotifierProvider<AppStateManager>.value(
+            value: appStateManager,
+          ),
+          // ChangeNotifierProvider<UserDAO>.value(
+          //   value: userDao,
+          // )
         ],
         child: MaterialApp.router(
           localizationsDelegates: [

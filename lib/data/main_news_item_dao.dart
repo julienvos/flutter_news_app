@@ -3,7 +3,7 @@ import 'package:flutter_news/models/main_news_model/main_news_model.dart';
 
 class MainNewsDAO {
   final CollectionReference collection =
-      FirebaseFirestore.instance.collection('MainNews');
+      FirebaseFirestore.instance.collection('MainItem');
 
 // not necessary for now
   void saveNewsItem(MainNewsModel item) {
