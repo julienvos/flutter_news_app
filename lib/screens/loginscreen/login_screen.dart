@@ -80,11 +80,17 @@ class SocialIconButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SocialIconContainer(
-            socialIcon: FontAwesomeIcons.facebookSquare,
-          ),
+          IconButton(
+              onPressed: () =>
+                  context.read<AppStateManager>().signInWithFacebook(),
+              icon: SocialIconContainer(
+                socialIcon: FontAwesomeIcons.facebookSquare,
+              )),
           SocialIconContainer(socialIcon: FontAwesomeIcons.twitterSquare),
-          SocialIconContainer(socialIcon: FontAwesomeIcons.google)
+          IconButton(
+              onPressed: () =>
+                  context.read<AppStateManager>().signInWithGoogle(),
+              icon: SocialIconContainer(socialIcon: FontAwesomeIcons.google))
         ],
       ),
     );
@@ -120,6 +126,8 @@ class InlogForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //consumer to catch error messages from the changenotifier (to display messages)
+
     return FormBuilder(
         key: _formKey,
         child: Padding(
@@ -147,8 +155,18 @@ class InlogForm extends StatelessWidget {
                         _formKey.currentState!.fields['Email']!.value;
                     final String password =
                         _formKey.currentState!.fields['Password']!.value;
+
                     Provider.of<AppStateManager>(context, listen: false)
-                        .login(username, password);
+                        .login(username, password)
+                        .then((response) {
+                      if (response != null) {
+                        final snackBar = SnackBar(
+                          content: Text(response),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
                   }
                 },
                 child: Text('Sign in')),

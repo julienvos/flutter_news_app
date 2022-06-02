@@ -20,6 +20,11 @@ class Home extends StatelessWidget {
           bottomNavigationBar: TheNavBar(),
           appBar: AppBar(
             actions: [
+              IconButton(
+                  onPressed: () =>
+                      Provider.of<AppStateManager>(context, listen: false)
+                          .logout(),
+                  icon: Icon(Icons.logout)),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: IconButton(

@@ -63,6 +63,7 @@ class SignUpPage extends StatelessWidget {
                             //sign up
                             Provider.of<AppStateManager>(context, listen: false)
                                 .signup(email, password);
+                            //go to login page
                           }
                         },
                         child: Text('create Account')),
