@@ -18,15 +18,15 @@ class UserDAO extends ChangeNotifier {
 
   void signup(String email, String password) async {
     try {
-      // 2
-      await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      // 3
+      await auth
+          .createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then((value) => login(email, password));
+
       notifyListeners();
     } on FirebaseAuthException catch (e) {
-      // 4
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {

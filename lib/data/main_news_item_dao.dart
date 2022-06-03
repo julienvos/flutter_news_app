@@ -12,7 +12,6 @@ class MainNewsDAO {
 
   Stream<QuerySnapshot> getStream() {
     // return collection.snapshots();
-
     // //get latest first
     return collection.orderBy('date', descending: false).snapshots();
 

@@ -42,7 +42,6 @@ class HomePage extends StatelessWidget {
 
                   final newsItem =
                       snapshot.data?.docs.first; //most recent first
-
                   final convertedNewsItem =
                       MainNewsModel.fromSnapshot(newsItem);
                   return MainNewsItem(

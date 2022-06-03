@@ -56,15 +56,28 @@ class _BoardingPageState extends State<BoardingPage> {
             ),
             title: ' '),
         PageViewModel(
-            footer: Checkbox(
-                value: _skipBoarding,
-                onChanged: (value) {
-                  setState(() {
-                    _skipBoarding = value!; // null check
-                  });
-                }),
+            footer: Row(
+              children: [
+                Checkbox(
+                    value: _skipBoarding,
+                    onChanged: (value) {
+                      setState(() {
+                        _skipBoarding = value!; // null check
+                      });
+                    }),
+                Text("Don't show this anymore")
+              ],
+            ),
             decoration: PageDecoration(),
-            bodyWidget: Text('Something else'),
+            bodyWidget: Column(
+              children: [
+                Text(
+                  "Welcome!",
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                Image.asset('assets/images/Windows-amico.png')
+              ],
+            ),
             title: ' ')
       ],
       onDone: () async {
