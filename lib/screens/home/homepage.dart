@@ -41,12 +41,11 @@ class HomePage extends StatelessWidget {
                   }
 
                   final newsItem =
-                      snapshot.data?.docs.first; //most recent first
+                      snapshot.data?.docs.first; //take the most recent
                   final convertedNewsItem =
                       MainNewsModel.fromSnapshot(newsItem);
                   return MainNewsItem(
-                      imageUrl:
-                          'https://images.unsplash.com/photo-1654213626782-21329adc849e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY1NDM0MzE4NA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
+                      imageUrl: convertedNewsItem.imageUrl as String,
                       category: convertedNewsItem.category as String,
                       publisher: convertedNewsItem.publisher as String,
                       timeAgo: convertedNewsItem.date.toString(),

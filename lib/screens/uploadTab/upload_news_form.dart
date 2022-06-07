@@ -128,15 +128,23 @@ class _UploadNewsFormState extends State<UploadNewsForm> {
                     final String description =
                         _formKey.currentState!.value['Description'];
 
-                    final MainNewsModel item = MainNewsModel(
-                        title: title,
-                        category: category,
-                        publisher: publisher,
-                        description: description,
-                        date: DateTime.now());
+                    final imageUrl = itemManager.uploadImage(image);
+                    imageUrl
+                        .then((value) => {
+                              //put image in the model
+                              MainNewsModel(
+                                  imageUrl: value,
+                                  title: title,
+                                  category: category,
+                                  publisher: publisher,
+                                  description: description,
+                                  date: DateTime.now())
+                            })
+                        .then((item) => itemManager
+                            .saveNewsItem(// add to collection "MainItem"
+                                item.single)); //use single for just one element
 
-                    itemManager.uploadImage(image);
-                    itemManager.saveNewsItem(item);
+                    //kprint(' Doenload url = $imageUrl');
                   }
                 },
                 child: Text('Submit'))

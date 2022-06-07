@@ -6,7 +6,7 @@ class MainNewsModel {
   String? title;
   String? category;
   String? publisher;
-  // String? imageUrl;
+  String? imageUrl;
   String? description;
 
   DocumentReference? reference;
@@ -17,22 +17,22 @@ class MainNewsModel {
       {this.title,
       this.category,
       this.publisher,
-      // this.imageUrl,
+      this.imageUrl,
       this.description,
       this.reference,
       required this.date});
 
   @override
   String toString() {
-    return 'MainNewsModel(title: $title, date: $date, category: $category, publisher: $publisher, description: $description)';
+    return 'MainNewsModel(title: $title, date: $date, category: $category, publisher: $publisher, description: $description), imageUrl: $imageUrl';
   }
-  //, imageUrl: $imageUrl
+  //
 
   factory MainNewsModel.fromMap(Map<String, dynamic> data) => MainNewsModel(
       title: data['title'] as String?,
       category: data['category'] as String?,
       publisher: data['publisher'] as String?,
-      // imageUrl: data['imageUrl'] as String?,
+      imageUrl: data['imageUrl'] as String?,
       description: data['description'] as String?,
       date: DateTime.fromMicrosecondsSinceEpoch(data['date']));
 
@@ -41,7 +41,7 @@ class MainNewsModel {
         'date': date.microsecondsSinceEpoch,
         'category': category,
         'publisher': publisher,
-        // 'imageUrl': imageUrl,
+        'imageUrl': imageUrl,
         'description': description
       };
 
@@ -59,7 +59,7 @@ class MainNewsModel {
 
   factory MainNewsModel.fromSnapshot(DocumentSnapshot snapshot) {
     final newMainNewsModel = MainNewsModel.fromMap(
-        snapshot.data() as Map<String, dynamic>); // decode json data
+        snapshot.data() as Map<String, dynamic>); // decode "json" data
     newMainNewsModel.reference = snapshot.reference;
     return newMainNewsModel;
   }

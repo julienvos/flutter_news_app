@@ -1,7 +1,5 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_news/models/main_news_model/main_news_model.dart';
 import 'package:path/path.dart';
@@ -9,13 +7,14 @@ import 'package:path/path.dart';
 class MainNewsDAO {
   final CollectionReference collection =
       FirebaseFirestore.instance.collection('MainItem');
+  // allernieuwste eerste
+  // en maar eentje nodig
 
-// not necessary for now
   void saveNewsItem(MainNewsModel item) {
     collection.add(item.toMap());
   }
 
-  uploadImage(image) async {
+  Future uploadImage(image) async {
     try {
       if (image == null) return;
 
@@ -30,10 +29,12 @@ class MainNewsDAO {
       final snapshot = await task.whenComplete(() {});
       final urlDownload = await snapshot.ref.getDownloadURL();
 
-      print('Downloadlink = $urlDownload');
+      // print('Doenloadink = $urlDownload');
+      // print(urlDownload);
+      return urlDownload;
     } on FirebaseException catch (e) {
       return;
-    } finally {}
+    }
   }
 
   //get the image from storage
@@ -44,7 +45,7 @@ class MainNewsDAO {
   Stream<QuerySnapshot> getStream() {
     // return collection.snapshots();
     // //get latest first
-    return collection.orderBy('date', descending: false).snapshots();
+    return collection.orderBy('date', descending: true).snapshots();
 
     // ore use the index option in the firestore (choose one of them)
   }
