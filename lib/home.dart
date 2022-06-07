@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_news/managers/app_state_manager.dart';
 import 'package:flutter_news/the_nav_bar.dart';
+
 import 'package:go_router/go_router.dart';
+
 import 'package:provider/provider.dart';
 import 'screens/AccountPage/account_page.dart';
 import 'screens/BookmarkTab/bookMarkTab.dart';
 import 'screens/categories_tab/categories_tab.dart';
 import 'screens/home/homepage.dart';
+import 'screens/uploadTab/upload_news_form.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -48,7 +52,8 @@ class Home extends StatelessWidget {
               HomePage(),
               CategoriesTab(),
               BookMarkTab(),
-              AccountPage()
+              AccountPage(),
+              UploadNewsForm()
             ],
             index: manager.selectedIndex,
           ));

@@ -4,40 +4,45 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MainNewsModel {
   String? title;
-  DateTime? date;
   String? category;
   String? publisher;
-  String? imageUrl;
+  // String? imageUrl;
+  String? description;
 
   DocumentReference? reference;
 
+  DateTime date;
+
   MainNewsModel(
       {this.title,
-      this.date,
       this.category,
       this.publisher,
-      this.imageUrl,
-      this.reference});
+      // this.imageUrl,
+      this.description,
+      this.reference,
+      required this.date});
 
   @override
   String toString() {
-    return 'MainNewsModel(title: $title, date: $date, category: $category, publisher: $publisher, imageUrl: $imageUrl)';
+    return 'MainNewsModel(title: $title, date: $date, category: $category, publisher: $publisher, description: $description)';
   }
+  //, imageUrl: $imageUrl
 
   factory MainNewsModel.fromMap(Map<String, dynamic> data) => MainNewsModel(
-        title: data['title'] as String?,
-        date: (data['date'] as Timestamp).toDate(),
-        category: data['category'] as String?,
-        publisher: data['publisher'] as String?,
-        imageUrl: data['imageUrl'] as String?,
-      );
+      title: data['title'] as String?,
+      category: data['category'] as String?,
+      publisher: data['publisher'] as String?,
+      // imageUrl: data['imageUrl'] as String?,
+      description: data['description'] as String?,
+      date: DateTime.fromMicrosecondsSinceEpoch(data['date']));
 
   Map<String, dynamic> toMap() => {
         'title': title,
-        'date': date,
+        'date': date.microsecondsSinceEpoch,
         'category': category,
         'publisher': publisher,
-        'imageUrl': imageUrl,
+        // 'imageUrl': imageUrl,
+        'description': description
       };
 
   /// `dart:convert`

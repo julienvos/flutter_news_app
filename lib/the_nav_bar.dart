@@ -27,7 +27,8 @@ class TheNavBar extends StatelessWidget {
             const BottomNavigationBarItem(
                 icon: Icon(Icons.bookmark), label: 'bookmark'),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.person), label: 'profile')
+                icon: Icon(Icons.person), label: 'profile'),
+            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'add item')
           ]);
     }));
   }

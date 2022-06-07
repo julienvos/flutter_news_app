@@ -10,6 +10,7 @@ class Bottomtab {
   static const int categories = 1;
   static const int bookmark = 2;
   static const int profile = 3;
+  static const int newItem = 4;
 }
 
 // enum LoginInError {
@@ -32,7 +33,13 @@ class AppStateManager extends ChangeNotifier {
 
   int get selectedIndex => _selectedIndex;
 
-  List<String> _appBarTitles = ['Welcome', 'Categories', 'Bookmark', 'Account'];
+  List<String> _appBarTitles = [
+    'Welcome',
+    'Categories',
+    'Bookmark',
+    'Account',
+    'Add data'
+  ];
 
   List<String> get appBarTitles => _appBarTitles;
 
@@ -83,10 +90,12 @@ class AppStateManager extends ChangeNotifier {
   void signup(String email, String password) async {
     try {
       // 2
-      await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await auth
+          .createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then((value) => login(email, password));
       // 3
       notifyListeners();
     } on FirebaseAuthException catch (e) {

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
+//copied to app_state_manager
 class UserDAO extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
 
